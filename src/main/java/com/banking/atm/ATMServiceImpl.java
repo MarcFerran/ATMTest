@@ -63,7 +63,7 @@ public class ATMServiceImpl implements ATMService {
         if (finalResult == null || finalResult.entrySet().isEmpty()) finalResult = NotesHelper.getMinWithdraw(results);
 
         accountService.withdrawAmount(accountNumber, BigDecimal.valueOf(amount));
-        atm.substractNotes(finalResult);
+        atm.subtractNotes(finalResult);
 
         return finalResult;
     }

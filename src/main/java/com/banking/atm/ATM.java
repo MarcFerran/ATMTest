@@ -21,17 +21,17 @@ public class ATM {
 
     public void addNotes(final Map<Notes, Integer> income) {
         income.forEach((k, v) -> {
-            if (availableNotes.get(k) == null) availableNotes.put(k, 0);
             Validator.checkNotNull(v, "Null values not allowed");
+            if (availableNotes.get(k) == null) availableNotes.put(k, 0);
             if (Integer.valueOf(0) > v) throw new IllegalArgumentException("Negative values not allowed");
             availableNotes.merge(k, v, Integer::sum);
         });
     }
 
-    public void substractNotes(final Map<Notes, Integer> outcome) {
+    public void subtractNotes(final Map<Notes, Integer> outcome) {
         outcome.forEach((k, v) -> {
+            Validator.checkNotNull(v, "A null value cannot be subtracted");
             if (availableNotes.get(k) == null) availableNotes.put(k, 0);
-            Validator.checkNotNull(v, "A null value cannot be substracted");
             if (availableNotes.get(k) < v) throw new IllegalArgumentException(String.format("Impossible to extract %s notes of %s", v, k.toString()));
             availableNotes.replace(k, availableNotes.get(k) - v);
         });
