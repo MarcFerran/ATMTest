@@ -20,21 +20,25 @@ public class ATM {
     }
 
     public void addNotes(final Map<Notes, Integer> income) {
+        Map<Notes, Integer> aux = new EnumMap<>(availableNotes);
         income.forEach((k, v) -> {
             Validator.checkNotNull(v, "Null values not allowed");
-            if (availableNotes.get(k) == null) availableNotes.put(k, 0);
+            if (aux.get(k) == null) aux.put(k, 0);
             if (Integer.valueOf(0) > v) throw new IllegalArgumentException("Negative values not allowed");
-            availableNotes.merge(k, v, Integer::sum);
+            aux.merge(k, v, Integer::sum);
         });
+        availableNotes = aux;
     }
 
     public void subtractNotes(final Map<Notes, Integer> outcome) {
+        Map<Notes, Integer> aux = new EnumMap<>(availableNotes);
         outcome.forEach((k, v) -> {
             Validator.checkNotNull(v, "A null value cannot be subtracted");
-            if (availableNotes.get(k) == null) availableNotes.put(k, 0);
-            if (availableNotes.get(k) < v) throw new IllegalArgumentException(String.format("Impossible to extract %s notes of %s", v, k.toString()));
-            availableNotes.replace(k, availableNotes.get(k) - v);
+            if (aux.get(k) == null) aux.put(k, 0);
+            if (aux.get(k) < v) throw new IllegalArgumentException(String.format("Impossible to extract %s notes of %s", v, k.toString()));
+            aux.replace(k, aux.get(k) - v);
         });
+        availableNotes = aux;
     }
 
     public String allAvailableNotesPrettyPrint() {
