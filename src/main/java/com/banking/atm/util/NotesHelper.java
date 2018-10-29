@@ -5,7 +5,7 @@ import com.banking.atm.common.Notes;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.banking.atm.common.Notes.*;
+import static com.banking.atm.common.Notes.FIVE;
 
 public class NotesHelper {
 
@@ -21,10 +21,7 @@ public class NotesHelper {
                 .min(Comparator.comparingInt(NotesHelper::sumNumberOfNotes))
                 .orElse(null);
 
-        if (entries == null) return null;
-        else {
-            return convertToMap(entries);
-        }
+        return (entries == null) ? null : convertToMap(entries);
     }
 
     public static Map<Notes, Integer> getMinWithdrawWith5Note(List<Map<Notes, Integer>> withdrawList) {
@@ -34,10 +31,7 @@ public class NotesHelper {
                 .min(Comparator.comparingInt(NotesHelper::sumNumberOfNotes))
                 .orElse(null);
 
-        if (entries == null) return null;
-        else {
-            return convertToMap(entries);
-        }
+        return (entries == null) ? null : convertToMap(entries);
     }
 
     private static Map<Notes, Integer> convertToMap(final Set<Map.Entry<Notes, Integer>> set) {
