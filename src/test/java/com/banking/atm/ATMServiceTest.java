@@ -114,6 +114,12 @@ public class ATMServiceTest {
     }
 
     @Test(expected = ATMServiceException.class)
+    public void should_fail_if_the_atm_not_have_the_correct_notes_to_deliver_the_amount() {
+        ATMService atmService = new ATMServiceImpl();
+        withdrawAmountFromAccount("01001", atmService, createNotesMap(100, 100, 100, 0), 115);
+    }
+
+    @Test(expected = ATMServiceException.class)
     public void should_withdraw_until_atm_get_out_of_notes() {
         ATMService atmService = new ATMServiceImpl();
         Map<Notes, Integer> withdrawResult = withdrawAmountFromAccount("01001", atmService, createNotesMap(2, 2, 2, 2), 100);

@@ -54,8 +54,8 @@ public class ATMServiceImpl implements ATMService {
         final List<Map<Notes, Integer>> results = calculateRecursive(amount, atm, null, FIFTY);
 
         if (results.size() == 0) {
-            logger.error(String.format("Insufficient founds in the ATM"));
-            throw new ATMServiceException("Insufficient founds in the ATM");
+            logger.error(String.format("The ATM cannot deliver this amount"));
+            throw new ATMServiceException("The ATM cannot deliver this amount");
         }
 
         Map<Notes, Integer> finalResult = NotesHelper.getMinWithdrawWith5Note(results);
