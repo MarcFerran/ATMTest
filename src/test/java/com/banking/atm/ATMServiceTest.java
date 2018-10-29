@@ -30,6 +30,11 @@ public class ATMServiceTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void should_fail_when_inserting_null_values_to_the_atm() {
+        new ATMServiceImpl().replenish(createNotesMap(null, null, null, null));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void should_fail_inserting_to_the_atm_a_null() {
         ATMService atmService = new ATMServiceImpl();
         atmService.replenish(createNotesMap(null, null, null, null));
