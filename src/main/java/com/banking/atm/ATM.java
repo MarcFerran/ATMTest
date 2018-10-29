@@ -23,8 +23,8 @@ public class ATM {
         Map<Notes, Integer> aux = new EnumMap<>(availableNotes);
         income.forEach((k, v) -> {
             Validator.checkNotNull(v, "Null values not allowed");
-            if (aux.get(k) == null) aux.put(k, 0);
             if (Integer.valueOf(0) > v) throw new IllegalArgumentException("Negative values not allowed");
+            if (aux.get(k) == null) aux.put(k, 0);
             aux.merge(k, v, Integer::sum);
         });
         availableNotes = aux;
@@ -34,8 +34,8 @@ public class ATM {
         Map<Notes, Integer> aux = new EnumMap<>(availableNotes);
         outcome.forEach((k, v) -> {
             Validator.checkNotNull(v, "A null value cannot be subtracted");
-            if (aux.get(k) == null) aux.put(k, 0);
             if (aux.get(k) < v) throw new IllegalArgumentException(String.format("Impossible to extract %s notes of %s", v, k.toString()));
+            if (aux.get(k) == null) aux.put(k, 0);
             aux.replace(k, aux.get(k) - v);
         });
         availableNotes = aux;
