@@ -40,6 +40,12 @@ public class ATMServiceTest {
         atmService.replenish(createNotesMap(null, null, null, null));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void should_fail_if_the_account_number_is_null() {
+        ATMService atmService = new ATMServiceImpl();
+        withdrawAmountFromAccount(null, atmService, createNotesMap(100, 100, 100, 100), 50);
+    }
+
     @Test(expected = AccountServiceException.class)
     public void should_fail_if_the_amount_to_withdraw_is_bigger_than_the_account_saves() {
         ATMService atmService = new ATMServiceImpl();

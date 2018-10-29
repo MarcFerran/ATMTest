@@ -5,7 +5,7 @@ import com.banking.account.AccountServiceImpl;
 import com.banking.atm.common.Notes;
 import com.banking.atm.exceptions.ATMServiceException;
 import com.banking.atm.util.NotesHelper;
-import org.apache.commons.lang3.Validate;
+import com.banking.util.Validator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -39,8 +39,8 @@ public class ATMServiceImpl implements ATMService {
 
     @Override
     public Map<Notes, Integer> withdraw(final String accountNumber, final Integer amount) {
-        Validate.notBlank(accountNumber);
-        Validate.notNull(amount);
+        Validator.checkNotEmpty(accountNumber, "The Account Number cannot be empty");
+        Validator.checkNotNull(amount, "Amount cannot be null");
 
         if(amount % 5 != 0) {
             logger.error(String.format("Withdrawal not divisible by 5"));
